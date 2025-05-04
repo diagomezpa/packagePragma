@@ -131,18 +131,51 @@ class _MyHomePageState extends State<MyHomePage> {
                   return Center(
                     child: ElevatedButton(
                       onPressed: () {
-                        if (index == 0) {
+                        if (index == 0) { // cargar un producto 1
                           productBloc.eventSink.add(LoadProduct(1));
                         }
-                        if (index == 1) {
+                        if (index == 1) { // cargar todos los productos
                           productBloc.eventSink.add(LoadProducts());
                         }
-                        if (index == 2) {
+                        if (index == 2) { // eliminar producto 1
+                          //productBloc.eventSink.add(DeleteProductEvent(1));
                           productBloc.eventSink.add(DeleteProductEvent(1));
                         }
-                        if (index == 3) {
-                          productBloc.eventSink.add(LoadProducts());
+                        if (index == 3) { // crear producto 1
+                          //productBloc.eventSink.add(LoadProducts());
+                          
                         }
+                        if (index == 4) { // cargar carritos 
+                          //productBloc.eventSink.add(LoadProducts());
+                        }
+                        if (index == 5) { // carrgar carrito
+                          //productBloc.eventSink.add(LoadProducts());
+                        }
+                        if (index == 6) { // eliminar carrito
+                          //productBloc.eventSink.add(LoadProducts());
+                         // productBloc.eventSink.add(LoadProducts());
+                        }
+                        if (index == 7) { // crear carrito
+                          //productBloc.eventSink.add(LoadProducts());
+                        }
+                        if (index == 8) { // actualizar carrito
+                          //productBloc.eventSink.add(LoadProducts());
+                        }
+                        if (index == 9) { // cargar usuarios
+                          //productBloc.eventSink.add(LoadProducts());
+                        }
+                        if (index == 10) { // cargar usuario
+                          //productBloc.eventSink.add(LoadProducts());
+                        }
+                        if (index == 11) { // eliminar usuario
+                          //productBloc.eventSink.add(LoadProducts());
+                        }
+                        if (index == 12) { // crear usuario
+                          //productBloc.eventSink.add(LoadProducts());
+                        }
+                        
+
+                        
                         // Acción al presionar otros botones
                       },
                       child: Text('${index + 1}'),
@@ -154,11 +187,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+   
     );
   }
 }

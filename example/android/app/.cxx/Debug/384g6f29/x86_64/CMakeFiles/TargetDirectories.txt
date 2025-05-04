@@ -1,0 +1,2 @@
+C:/Users/diago/proyectos/Flutter-Proyectos/packagePragma/example/android/app/.cxx/Debug/384g6f29/x86_64/CMakeFiles/edit_cache.dir
+C:/Users/diago/proyectos/Flutter-Proyectos/packagePragma/example/android/app/.cxx/Debug/384g6f29/x86_64/CMakeFiles/rebuild_cache.dir
