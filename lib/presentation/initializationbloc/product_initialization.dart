@@ -88,7 +88,10 @@ ProductBloc initializeProductBloc(ProductLoadedCallback onProductLoaded) {
     } else if (state is ProductLoaded) {
       onProductLoaded(state.product);
     } else if (state is ProductCreated) {
+      onProductLoaded(state.product); 
+     // Llamar al callback con el producto creado
     } else if (state is ProductDeleted) {
+      onProductLoaded(state.product); // Llamar al callback con el producto eliminado
     } else if (state is ProductUpdated) {
     } else if (state is ProductError) {}
   });

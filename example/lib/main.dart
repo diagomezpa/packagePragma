@@ -49,6 +49,8 @@ class _MyHomePageState extends State<MyHomePage> {
         } else if (productOrProducts is List<Product>) {
           _products.clear();
           _products.addAll(productOrProducts);
+        } else if (productOrProducts is ProductDeleted) {
+          _loadedProduct = productOrProducts.product; // Manejar producto eliminado
         }
       });
     });
@@ -143,6 +145,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         }
                         if (index == 3) { // crear producto 1
                           //productBloc.eventSink.add(LoadProducts());
+                          productBloc.eventSink.add(CreateProductEvent(Product(
+          id: 0,
+          title: 'prueba',
+          description: 'producto de prueba',
+          category: Category.ELECTRONICS,
+          image: 'imagen de prueba',
+          rating: Rating(rate: 1, count: 2),
+          price: 100,
+        )));
                           
                         }
                         if (index == 4) { // cargar carritos 
