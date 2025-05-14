@@ -7,7 +7,10 @@ import 'package:fake_maker_api_pragma_api/domain/use_cases/carts/get_carts.dart'
 import 'package:fake_maker_api_pragma_api/domain/use_cases/carts/update_cart.dart';
 import 'package:fake_maker_api_pragma_api/presentation/blocs/cart_bloc.dart';
 
-CartBloc initializeCartBloc() {
+
+typedef CartLoadedCallback = void Function(dynamic cartOrCarts);
+
+CartBloc initializeCartBloc( CartLoadedCallback onCartLoaded) {
   int userIdWidth = 8;
   int dateWidth = 8;
   int productsWidth = 8;
@@ -42,24 +45,28 @@ CartBloc initializeCartBloc() {
     if (state is CartLoading) {
       print('Loading carts...');
     } else if (state is CartLoaded) {
-      updateWidths(state.cart);
-      printCartState('Cart loaded', state.cart);
+      //updateWidths(state.cart);
+      //printCartState('Cart loaded', state.cart);
+      onCartLoaded(state.cart);
     } else if (state is CartsLoaded) {
-      userIdWidth = state.carts
-          .map((c) => c.userId.toString().length)
-          .reduce((a, b) => a > b ? a : b);
-      dateWidth = state.carts
-          .map((c) => c.date.toString().length)
-          .reduce((a, b) => a > b ? a : b);
-      productsWidth = state.carts
-          .map((c) => c.products != null
-              ? c.products!
-                  .map((p) => p.productId.toString().length)
-                  .reduce((a, b) => a > b ? a : b)
-              : 0)
-          .reduce((a, b) => a > b ? a : b);
-      print(
-          'Carts loaded:\n| ID       | User ID${' '} | Date${' ' * (dateWidth - 4)} | Products${' ' * (productsWidth - 8)} |\n${state.carts.map((c) => '| ${c.id.toString().padRight(8)} | ${c.userId.toString().padRight(userIdWidth)}        | ${c.date.toString().padRight(dateWidth)} | ${c.products?.map((p) => '{ productId: ${p.productId} quantity : ${p.quantity}}').join(', ').padRight(productsWidth)} |').join('\n')}');
+      // userIdWidth = state.carts
+      //     .map((c) => c.userId.toString().length)
+      //     .reduce((a, b) => a > b ? a : b);
+      // dateWidth = state.carts
+      //     .map((c) => c.date.toString().length)
+      //     .reduce((a, b) => a > b ? a : b);
+      // productsWidth = state.carts
+      //     .map((c) => c.products != null
+      //         ? c.products!
+      //             .map((p) => p.productId.toString().length)
+      //             .reduce((a, b) => a > b ? a : b)
+      //         : 0)
+      //     .reduce((a, b) => a > b ? a : b);
+      // print(
+      //     'Carts loaded:\n| ID       | User ID${' '} | Date${' ' * (dateWidth - 4)} | Products${' ' * (productsWidth - 8)} |\n${state.carts.map((c) => '| ${c.id.toString().padRight(8)} | ${c.userId.toString().padRight(userIdWidth)}        | ${c.date.toString().padRight(dateWidth)} | ${c.products?.map((p) => '{ productId: ${p.productId} quantity : ${p.quantity}}').join(', ').padRight(productsWidth)} |').join('\n')}');
+    
+    onCartLoaded(state.carts);
+
     } else if (state is CartDeleted) {
       updateWidths(state.cart);
       printCartState('Cart deleted', state.cart);

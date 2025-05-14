@@ -76,7 +76,7 @@ class CartBloc {
   final CreateCart createCart;
   final UpdateCart updateCart;
 
-  final _stateController = StreamController<CartState>();
+  final _stateController = StreamController<CartState>.broadcast(); // Convert to broadcast stream
   Stream<CartState> get state => _stateController.stream;
 
   final _eventController = StreamController<CartEvent>();

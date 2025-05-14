@@ -36,8 +36,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late final ProductBloc productBloc;
+  late final CartBloc cartBloc; // Inicializar cartBloc
   Product? _loadedProduct;
   final List<Product> _products = [];
+  final List<Cart> _carts = []; // Lista para almacenar los carritos
 
   @override
   void initState() {
@@ -53,6 +55,18 @@ class _MyHomePageState extends State<MyHomePage> {
           _loadedProduct = productOrProducts.product; // Manejar producto eliminado
         }
       });
+    });
+
+    cartBloc = initializeCartBloc((cartState) {
+      // Handle cart state changes here if needed
+    }); // Inicializar cartBloc
+    cartBloc.state.listen((state) {
+      if (state is CartsLoaded) {
+        setState(() {
+          _carts.clear();
+          _carts.addAll(state.carts); // Actualizar la lista de carritos
+        });
+      }
     });
   }
 
@@ -101,7 +115,28 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            if (_loadedProduct != null) ...[
+            if (_carts.isNotEmpty) ...[
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _carts.length,
+                  itemBuilder: (context, index) {
+                    final cart = _carts[index];
+                    return ListTile(
+                      title: Text('Cart ID: ${cart.id}'),
+                      subtitle: Text('User ID: ${cart.userId}'),
+                    );
+                  },
+                ),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  setState(() {
+                    _carts.clear(); // Clear carts and return to main menu
+                  });
+                },
+                child: const Text('Volver'),
+              ),
+            ] else if (_loadedProduct != null) ...[
               Text('ID: ${_loadedProduct!.id}'),
               Text('Title: ${_loadedProduct!.title}'),
               Text('Price: ${_loadedProduct!.price}'),
@@ -140,54 +175,51 @@ class _MyHomePageState extends State<MyHomePage> {
                           productBloc.eventSink.add(LoadProducts());
                         }
                         if (index == 2) { // eliminar producto 1
-                          //productBloc.eventSink.add(DeleteProductEvent(1));
                           productBloc.eventSink.add(DeleteProductEvent(1));
                         }
                         if (index == 3) { // crear producto 1
-                          //productBloc.eventSink.add(LoadProducts());
                           productBloc.eventSink.add(CreateProductEvent(Product(
-          id: 0,
-          title: 'prueba',
-          description: 'producto de prueba',
-          category: Category.ELECTRONICS,
-          image: 'imagen de prueba',
-          rating: Rating(rate: 1, count: 2),
-          price: 100,
-        )));
-                          
+                            id: 0,
+                            title: 'prueba',
+                            description: 'producto de prueba',
+                            category: Category.ELECTRONICS,
+                            image: 'imagen de prueba',
+                            rating: Rating(rate: 1, count: 2),
+                            price: 100,
+                          )));
                         }
                         if (index == 4) { // cargar carritos 
-                          //productBloc.eventSink.add(LoadProducts());
+                          cartBloc.eventSink.add(LoadCartsEvent());
+                          cartBloc.state.listen((state) {
+                            if (state is CartsLoaded) {
+                              setState(() {
+                                _carts.clear();
+                                _carts.addAll(state.carts);
+                              });
+                            }
+                          });
                         }
-                        if (index == 5) { // carrgar carrito
-                          //productBloc.eventSink.add(LoadProducts());
+                        if (index == 5) { // cargar carrito
+                          cartBloc.eventSink.add(LoadCartEvent(1));
+                          cartBloc.state.listen((state) {
+                            if (state is CartLoaded) {
+                              final cart = state.cart;
+                              setState(() {
+                                _carts.clear();
+                                _carts.add(cart);
+                              });
+                            }
+                          });
                         }
                         if (index == 6) { // eliminar carrito
-                          //productBloc.eventSink.add(LoadProducts());
-                         // productBloc.eventSink.add(LoadProducts());
+                          // Acción no implementada
                         }
                         if (index == 7) { // crear carrito
-                          //productBloc.eventSink.add(LoadProducts());
+                          // Acción no implementada
                         }
                         if (index == 8) { // actualizar carrito
-                          //productBloc.eventSink.add(LoadProducts());
+                          // Acción no implementada
                         }
-                        if (index == 9) { // cargar usuarios
-                          //productBloc.eventSink.add(LoadProducts());
-                        }
-                        if (index == 10) { // cargar usuario
-                          //productBloc.eventSink.add(LoadProducts());
-                        }
-                        if (index == 11) { // eliminar usuario
-                          //productBloc.eventSink.add(LoadProducts());
-                        }
-                        if (index == 12) { // crear usuario
-                          //productBloc.eventSink.add(LoadProducts());
-                        }
-                        
-
-                        
-                        // Acción al presionar otros botones
                       },
                       child: Text('${index + 1}'),
                     ),
@@ -198,7 +230,6 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-   
     );
   }
 }
