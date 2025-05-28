@@ -213,12 +213,52 @@ class _MyHomePageState extends State<MyHomePage> {
                         }
                         if (index == 6) { // eliminar carrito
                           // Acción no implementada
+                          cartBloc.eventSink.add(DeleteCartEvent(1));
+                          cartBloc.state.listen((state) {
+                            if (state is CartDeleted) {
+                              final cart = state.cart;
+                              setState(() {
+                                _carts.clear();
+                                _carts.add(cart);
+                              });
+                            }
+                          });
                         }
                         if (index == 7) { // crear carrito
                           // Acción no implementada
+                          
+                          cartBloc.eventSink.add(CreateCartEvent(Cart(
+                            id: 5,
+                            userId: 5,
+                            date: DateTime.now(),
+                            products: [],
+                          )));
+                          cartBloc.state.listen((state) {
+                            if (state is CartCreated) {
+                              final cart = state.cart;
+                              setState(() {
+                                _carts.clear();
+                                _carts.add(cart);
+                              });
+                            }
+                          });
+
+
                         }
                         if (index == 8) { // actualizar carrito
                           // Acción no implementada
+                          cartBloc.eventSink.add(UpdateCartEvent(1));
+                          cartBloc.state.listen((state) {
+                            if (state is CartUpdated) {
+                              final cart = state.cart;
+                              setState(() {
+                                _carts.clear();
+                                _carts.add(cart);
+                              });
+                            }
+                          });
+
+
                         }
                       },
                       child: Text('${index + 1}'),

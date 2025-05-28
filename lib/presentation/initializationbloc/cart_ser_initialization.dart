@@ -68,14 +68,17 @@ CartBloc initializeCartBloc( CartLoadedCallback onCartLoaded) {
     onCartLoaded(state.carts);
 
     } else if (state is CartDeleted) {
-      updateWidths(state.cart);
-      printCartState('Cart deleted', state.cart);
+      // updateWidths(state.cart);
+      // printCartState('Cart deleted', state.cart);
+      onCartLoaded(state.cart);
     } else if (state is CartCreated) {
-      updateWidths(state.cart);
-      printCartState('Cart created', state.cart);
+      // updateWidths(state.cart);
+      // printCartState('Cart created', state.cart);
+      onCartLoaded(state.cart);
     } else if (state is CartUpdated) {
-      updateWidths(state.cart);
-      printCartState('Cart updated', state.cart);
+      // updateWidths(state.cart);
+      // printCartState('Cart updated', state.cart);
+      onCartLoaded(state.cart);
     } else if (state is CartError) {
       print('Error: ${state.message}');
     }
