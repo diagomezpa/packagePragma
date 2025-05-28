@@ -78,25 +78,6 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  void _showModal(BuildContext context, String content) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Modal'),
-          content: Text(content),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Cerrar'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   void _clearProduct() {
     setState(() {
