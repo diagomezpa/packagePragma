@@ -110,12 +110,18 @@ class ProductBloc {
     }
     if (event is CreateProductEvent) {
       _stateController.add(ProductLoading());
-      final failureOrProduct = await createProduct(event.product);
-      failureOrProduct.fold(
-        (failure) =>
-            _stateController.add(ProductError(_mapFailureToMessage(failure))),
-        (product) => _stateController.add(ProductCreated(product)),
-      );
+      
+      // Reiniciar cualquier recurso que pueda estar causando conflictos
+      try {
+        final failureOrProduct = await createProduct(event.product);
+        failureOrProduct.fold(
+          (failure) =>
+              _stateController.add(ProductError(_mapFailureToMessage(failure))),
+          (product) => _stateController.add(ProductCreated(product)),
+        );
+      } catch (e) {
+        _stateController.add(ProductError('Error inesperado: ${e.toString()}'));
+      }
     }
     if (event is DeleteProductEvent) {
       _stateController.add(ProductLoading());

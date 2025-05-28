@@ -152,17 +152,25 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ] else if (_products.isNotEmpty) ...[
               Expanded(
-                child: ListView.builder(
-                  itemCount: _products.length,
-                  itemBuilder: (context, index) {
-                    final product = _products[index];
-                    return ListTile(
-                      title: Text(product.title),
-                      subtitle: Text('Price: ${product.price}'),
-                      leading: Image.network(product.image),
-                    );
-                  },
-                ),
+              child: ListView.builder(
+                itemCount: _products.length,
+                itemBuilder: (context, index) {
+                final product = _products[index];
+                return ListTile(
+                  title: Text(product.title),
+                  subtitle: Text('Price: ${product.price}'),
+                  leading: Image.network(product.image),
+                );
+                },
+              ),
+              ),
+              ElevatedButton(
+              onPressed: () {
+                setState(() {
+                _products.clear(); // Clear products and return to main menu
+                });
+              },
+              child: const Text('Volver'),
               ),
             ] else ...[
               Flexible(
@@ -199,7 +207,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 title: 'prueba',
                                 description: 'producto de prueba',
                                 category: Category.ELECTRONICS,
-                                image: 'imagen de prueba',
+                                image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
                                 rating: Rating(rate: 1, count: 2),
                                 price: 100,
                               )));
