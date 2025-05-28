@@ -29,25 +29,7 @@ ProductBloc initializeProductBloc(ProductLoadedCallback onProductLoaded) {
       getProduct, getProducts, createProduct, deleteProduct, updateProduct);
 
 
-  void _showModal(BuildContext context, String content) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Modal'),
-          content: Text(content),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Cerrar'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
+
   productBloc.state.listen((state) {
     if (state is ProductLoading) {
       print('Loading product...');
