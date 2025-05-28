@@ -161,110 +161,139 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ] else ...[
-              GridView.count(
-                crossAxisCount: 3,
-                shrinkWrap: true,
-                children: List.generate(9, (index) {
-                  return Center(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (index == 0) { // cargar un producto 1
-                          productBloc.eventSink.add(LoadProduct(1));
-                        }
-                        if (index == 1) { // cargar todos los productos
-                          productBloc.eventSink.add(LoadProducts());
-                        }
-                        if (index == 2) { // eliminar producto 1
-                          productBloc.eventSink.add(DeleteProductEvent(1));
-                        }
-                        if (index == 3) { // crear producto 1
-                          productBloc.eventSink.add(CreateProductEvent(Product(
-                            id: 0,
-                            title: 'prueba',
-                            description: 'producto de prueba',
-                            category: Category.ELECTRONICS,
-                            image: 'imagen de prueba',
-                            rating: Rating(rate: 1, count: 2),
-                            price: 100,
-                          )));
-                        }
-                        if (index == 4) { // cargar carritos 
-                          cartBloc.eventSink.add(LoadCartsEvent());
-                          cartBloc.state.listen((state) {
-                            if (state is CartsLoaded) {
-                              setState(() {
-                                _carts.clear();
-                                _carts.addAll(state.carts);
-                              });
-                            }
-                          });
-                        }
-                        if (index == 5) { // cargar carrito
-                          cartBloc.eventSink.add(LoadCartEvent(1));
-                          cartBloc.state.listen((state) {
-                            if (state is CartLoaded) {
-                              final cart = state.cart;
-                              setState(() {
-                                _carts.clear();
-                                _carts.add(cart);
-                              });
-                            }
-                          });
-                        }
-                        if (index == 6) { // eliminar carrito
-                          // Acción no implementada
-                          cartBloc.eventSink.add(DeleteCartEvent(1));
-                          cartBloc.state.listen((state) {
-                            if (state is CartDeleted) {
-                              final cart = state.cart;
-                              setState(() {
-                                _carts.clear();
-                                _carts.add(cart);
-                              });
-                            }
-                          });
-                        }
-                        if (index == 7) { // crear carrito
-                          // Acción no implementada
-                          
-                          cartBloc.eventSink.add(CreateCartEvent(Cart(
-                            id: 5,
-                            userId: 5,
-                            date: DateTime.now(),
-                            products: [],
-                          )));
-                          cartBloc.state.listen((state) {
-                            if (state is CartCreated) {
-                              final cart = state.cart;
-                              setState(() {
-                                _carts.clear();
-                                _carts.add(cart);
-                              });
-                            }
-                          });
-
-
-                        }
-                        if (index == 8) { // actualizar carrito
-                          // Acción no implementada
-                          cartBloc.eventSink.add(UpdateCartEvent(1));
-                          cartBloc.state.listen((state) {
-                            if (state is CartUpdated) {
-                              final cart = state.cart;
-                              setState(() {
-                                _carts.clear();
-                                _carts.add(cart);
-                              });
-                            }
-                          });
-
-
-                        }
-                      },
-                      child: Text('${index + 1}'),
-                    ),
-                  );
-                }),
+              Flexible(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: List.generate(9, (index) {
+                      final optionDescriptions = [
+                        'Opción 1: Cargar un producto 1',
+                        'Opción 2: Cargar todos los productos',
+                        'Opción 3: Eliminar producto 1',
+                        'Opción 4: Crear producto 1',
+                        'Opción 5: Cargar carritos',
+                        'Opción 6: Cargar carrito 1',
+                        'Opción 7: Eliminar carrito 1',
+                        'Opción 8: Crear carrito',
+                        'Opción 9: Actualizar carrito 1',
+                      ];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: Card(
+                          elevation: 4,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Center(
+                                  child: Text(
+                                    optionDescriptions[index],
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                ListTile(
+                                  title: const Text('Tap to perform action'),
+                                  onTap: () {
+                                    if (index == 0) { // cargar un producto 1
+                                      productBloc.eventSink.add(LoadProduct(1));
+                                    }
+                                    if (index == 1) { // cargar todos los productos
+                                      productBloc.eventSink.add(LoadProducts());
+                                    }
+                                    if (index == 2) { // eliminar producto 1
+                                      productBloc.eventSink.add(DeleteProductEvent(1));
+                                    }
+                                    if (index == 3) { // crear producto 1
+                                      productBloc.eventSink.add(CreateProductEvent(Product(
+                                        id: 0,
+                                        title: 'prueba',
+                                        description: 'producto de prueba',
+                                        category: Category.ELECTRONICS,
+                                        image: 'imagen de prueba',
+                                        rating: Rating(rate: 1, count: 2),
+                                        price: 100,
+                                      )));
+                                    }
+                                    if (index == 4) { // cargar carritos 
+                                      cartBloc.eventSink.add(LoadCartsEvent());
+                                      cartBloc.state.listen((state) {
+                                        if (state is CartsLoaded) {
+                                          setState(() {
+                                            _carts.clear();
+                                            _carts.addAll(state.carts);
+                                        });
+                                      }
+                                    });
+                                    }
+                                    if (index == 5) { // cargar carrito
+                                      cartBloc.eventSink.add(LoadCartEvent(1));
+                                      cartBloc.state.listen((state) {
+                                        if (state is CartLoaded) {
+                                          final cart = state.cart;
+                                          setState(() {
+                                            _carts.clear();
+                                            _carts.add(cart);
+                                        });
+                                      }
+                                    });
+                                    }
+                                    if (index == 6) { // eliminar carrito
+                                      cartBloc.eventSink.add(DeleteCartEvent(1));
+                                      cartBloc.state.listen((state) {
+                                        if (state is CartDeleted) {
+                                          final cart = state.cart;
+                                          setState(() {
+                                            _carts.clear();
+                                            _carts.add(cart);
+                                        });
+                                      }
+                                    });
+                                    }
+                                    if (index == 7) { // crear carrito
+                                      cartBloc.eventSink.add(CreateCartEvent(Cart(
+                                        id: 5,
+                                        userId: 5,
+                                        date: DateTime.now(),
+                                        products: [],
+                                      )));
+                                      cartBloc.state.listen((state) {
+                                        if (state is CartCreated) {
+                                          final cart = state.cart;
+                                          setState(() {
+                                            _carts.clear();
+                                            _carts.add(cart);
+                                        });
+                                      }
+                                    });
+                                    }
+                                    if (index == 8) { // actualizar carrito
+                                      cartBloc.eventSink.add(UpdateCartEvent(1));
+                                      cartBloc.state.listen((state) {
+                                        if (state is CartUpdated) {
+                                          final cart = state.cart;
+                                          setState(() {
+                                            _carts.clear();
+                                            _carts.add(cart);
+                                        });
+                                      }
+                                    });
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    }),
+                  ),
+                ),
               ),
             ],
           ],
