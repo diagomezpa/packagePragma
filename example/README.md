@@ -130,27 +130,23 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 ```
 
-## Más Información
-
-Para más información sobre cómo usar el paquete, consulta el archivo [`main.dart`](./lib/main.dart) en este proyecto. Este archivo contiene ejemplos detallados de cómo inicializar los blocs y manejar los estados de productos y carritos.
-
 ## Imágenes de Ejecución
 
 A continuación, se muestran capturas de pantalla de la aplicación Flutter en ejecución:
 
-1. **Pantalla Principal**:
+1. **Pantalla Principal**  
    ![Pantalla Principal](./assets/images/main_screen.png)
 
-2. **Lista de Productos**:
+2. **Lista de Productos**  
    ![Lista de Productos](./assets/images/product_list.png)
 
-3. **Detalles del Producto**:
+3. **Detalles del Producto**  
    ![Detalles del Producto](./assets/images/product_details.png)
 
-4. **Lista de Carritos**:
+4. **Lista de Carritos**  
    ![Lista de Carritos](./assets/images/cart_list.png)
 
-5. **Detalles del Carrito**:
+5. **Detalles del Carrito**  
    ![Detalles del Carrito](./assets/images/cart_details.png)
 
 ## Licencia
