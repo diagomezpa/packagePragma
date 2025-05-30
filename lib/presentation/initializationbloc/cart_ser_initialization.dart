@@ -22,7 +22,6 @@ CartBloc initializeCartBloc( CartLoadedCallback onCartLoaded) {
   final updateCart = UpdateCart(cartRepository, getCart);
 
 
-
   final cartBloc =
       CartBloc(getCarts, getCart, deleteCart, createCart, updateCart);
 
