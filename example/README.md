@@ -13,7 +13,7 @@ Este proyecto es un ejemplo de cómo usar el paquete `fake_maker_api_pragma_api`
 1. Clona este repositorio:
 
    ```bash
-   git clone <URL_DEL_REPOSITORIO>
+   git clone https://github.com/diagomezpa/packagePragma.git
    ```
 
 2. Navega al directorio del proyecto:
